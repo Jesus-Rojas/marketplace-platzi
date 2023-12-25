@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -29,4 +31,8 @@ public class ProductoEntity {
   private Integer cantidadStock;
 
   private Boolean estado;
+
+  @ManyToOne
+  @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
+  private CategoriaEntity categoria;
 }

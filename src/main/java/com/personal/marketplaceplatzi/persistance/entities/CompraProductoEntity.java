@@ -1,10 +1,10 @@
 package com.personal.marketplaceplatzi.persistance.entities;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,4 +17,12 @@ public class CompraProductoEntity {
   private Integer cantidad;
   private Double total;
   private Boolean estado;
+
+  @ManyToOne
+  @JoinColumn(name = "id_compra", insertable = false, updatable = false)
+  private CompraEntity compra;
+
+  @ManyToOne
+  @JoinColumn(name = "id_producto", insertable = false, updatable = false)
+  private CompraEntity producto;
 }
