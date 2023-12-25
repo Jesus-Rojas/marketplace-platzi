@@ -17,9 +17,6 @@ public class CompraEntity {
   @Column(name = "id_compra")
   private Integer idCompra;
 
-  @Column(name = "idCliente")
-  private Integer idCliente;
-
   private LocalDateTime fecha;
 
   @Column(name = "medio_pago")
