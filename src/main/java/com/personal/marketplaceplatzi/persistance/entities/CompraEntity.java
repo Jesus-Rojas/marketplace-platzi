@@ -17,6 +17,9 @@ public class CompraEntity {
   @Column(name = "id_compra")
   private Integer idCompra;
 
+  @Column(name = "id_cliente")
+  private Integer idCliente;
+
   private LocalDateTime fecha;
 
   @Column(name = "medio_pago")
@@ -29,6 +32,6 @@ public class CompraEntity {
   @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
   private ClienteEntity cliente;
 
-  @OneToMany(mappedBy = "compra")
+  @OneToMany(mappedBy = "compra", cascade = { CascadeType.ALL })
   private List<CompraProductoEntity> compraProductos;
 }
