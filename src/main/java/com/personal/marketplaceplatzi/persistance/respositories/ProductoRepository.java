@@ -21,12 +21,11 @@ public class ProductoRepository implements ProductRepository {
 
   @Override
   public List<ProductModel> getAll() {
-    List<ProductoEntity> productos = (List<ProductoEntity>) productoCrud.findAll();
-    return productMapper.toProducts(productos);
+    return productMapper.toProducts((List<ProductoEntity>) productoCrud.findAll());
   }
 
   @Override
-  public Optional<List<ProductModel>> getByCategory(int categoryId) {
+  public Optional<List<ProductModel>> getByCategoryId(int categoryId) {
     return Optional.of(
         productMapper.toProducts(
             productoCrud.findByIdCategoriaOrderByNombreAsc(categoryId)

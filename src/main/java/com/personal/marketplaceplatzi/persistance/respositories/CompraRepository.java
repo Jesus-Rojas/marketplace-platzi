@@ -4,13 +4,14 @@ import com.personal.marketplaceplatzi.domain.models.PurchaseModel;
 import com.personal.marketplaceplatzi.domain.repositories.PurchaseRepository;
 import com.personal.marketplaceplatzi.persistance.cruds.CompraCrud;
 import com.personal.marketplaceplatzi.persistance.entities.CompraEntity;
-import com.personal.marketplaceplatzi.persistance.mappers.ProductMapper;
 import com.personal.marketplaceplatzi.persistance.mappers.PurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class CompraRepository implements PurchaseRepository {
   @Autowired
   private CompraCrud compraCrud;
@@ -24,7 +25,7 @@ public class CompraRepository implements PurchaseRepository {
   }
 
   @Override
-  public Optional<List<PurchaseModel>> getByClientId(int clientId) {
+  public Optional<List<PurchaseModel>> getByClientId(String clientId) {
     return compraCrud
         .findByIdCliente(clientId)
         .map(compras -> purchaseMapper.toPurchases(compras));

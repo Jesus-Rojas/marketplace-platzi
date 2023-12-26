@@ -8,20 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("products")
 public class ProductController {
   @Autowired
   private ProductService productService;
 
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<List<ProductModel>> getAll() {
     return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
   }
 
-  @GetMapping("/{productId}")
+  @GetMapping("{productId}")
   public ResponseEntity<ProductModel> getProduct(
       @PathVariable("productId") int productId
   ) {
@@ -31,14 +30,14 @@ public class ProductController {
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
-  @PostMapping("/")
+  @PostMapping("")
   public ResponseEntity<ProductModel> save(
       @RequestBody ProductModel product
   ) {
     return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
   }
 
-  @DeleteMapping("/{productId}")
+  @DeleteMapping("{productId}")
   public ResponseEntity<HttpStatus> delete(
       @PathVariable("productId") int productId
   ) {
@@ -47,12 +46,12 @@ public class ProductController {
     );
   }
 
-  @GetMapping("/category/{categoryId}")
-  public ResponseEntity<List<ProductModel>> getByCategory(
+  @GetMapping("category/{categoryId}")
+  public ResponseEntity<List<ProductModel>> getByCategoryId(
       @PathVariable("categoryId") int categoryId
   ) {
     return productService
-        .getByCategory(categoryId)
+        .getByCategoryId(categoryId)
         .map(products -> new ResponseEntity<>(products, HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }

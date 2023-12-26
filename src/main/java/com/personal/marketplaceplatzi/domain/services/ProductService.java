@@ -17,8 +17,8 @@ public class ProductService {
     return productRepository.getAll();
   }
 
-  public Optional<List<ProductModel>> getByCategory(int categoryId) {
-    return productRepository.getByCategory(categoryId);
+  public Optional<List<ProductModel>> getByCategoryId(int categoryId) {
+    return productRepository.getByCategoryId(categoryId);
   }
 
   public Optional<ProductModel> getProduct(int productId) {
