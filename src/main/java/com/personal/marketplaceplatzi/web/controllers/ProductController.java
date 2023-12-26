@@ -3,6 +3,8 @@ package com.personal.marketplaceplatzi.web.controllers;
 import com.personal.marketplaceplatzi.domain.models.ProductModel;
 import com.personal.marketplaceplatzi.domain.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,35 +17,43 @@ public class ProductController {
   private ProductService productService;
 
   @GetMapping("/")
-  public List<ProductModel> getAll() {
-    return productService.getAll();
+  public ResponseEntity<List<ProductModel>> getAll() {
+    return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
   }
 
   @GetMapping("/{productId}")
-  public Optional<ProductModel> getProduct(
+  public ResponseEntity<ProductModel> getProduct(
       @PathVariable("productId") int productId
   ) {
-    return productService.getProduct(productId);
+    return productService
+        .getProduct(productId)
+        .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   @PostMapping("/")
-  public ProductModel save(
+  public ResponseEntity<ProductModel> save(
       @RequestBody ProductModel product
   ) {
-    return productService.save(product);
+    return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{productId}")
-  public boolean delete(
+  public ResponseEntity<HttpStatus> delete(
       @PathVariable("productId") int productId
   ) {
-    return productService.delete(productId);
+    return new ResponseEntity<>(
+        productService.delete(productId) ? HttpStatus.OK : HttpStatus.NOT_FOUND
+    );
   }
 
   @GetMapping("/category/{categoryId}")
-  public Optional<List<ProductModel>> getByCategory(
+  public ResponseEntity<List<ProductModel>> getByCategory(
       @PathVariable("categoryId") int categoryId
   ) {
-    return productService.getByCategory(categoryId);
+    return productService
+        .getByCategory(categoryId)
+        .map(products -> new ResponseEntity<>(products, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 }
