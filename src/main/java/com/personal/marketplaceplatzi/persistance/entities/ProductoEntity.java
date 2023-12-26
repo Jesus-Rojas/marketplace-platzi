@@ -25,7 +25,7 @@ public class ProductoEntity {
   @Column(name = "precio_venta")
   private Double precioVenta;
 
-  @Column(name = "catidad_stock")
+  @Column(name = "cantidad_stock")
   private Integer cantidadStock;
 
   private Boolean estado;
